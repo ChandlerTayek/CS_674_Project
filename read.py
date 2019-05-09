@@ -13,6 +13,7 @@ def processImage(image):
 	#	print()
 	#plt.imshow(reshapedImage, cmap='gray', interpolation='nearest');
 	#plt.show()
+	return
 
 def processFile(filename, cat):
 	# print(filename)
@@ -21,8 +22,17 @@ def processFile(filename, cat):
 
 	for image in images:
 		processImage(image)
+	return
 
-categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
-for category in categories:
-	filename='./data/full_numpy_bitmap_'+category+'.npy'
-	processFile(filename, category)
+def loadUpData(cat):
+	for category in cat:
+		filename='./data/full_numpy_bitmap_'+category+'.npy'
+		processFile(filename, category)
+	return
+def main():
+	categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
+	loadUpData(categories)
+	return
+
+if __name__ == "__main__":
+	main()
