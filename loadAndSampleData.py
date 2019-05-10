@@ -1,8 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from sklearn.model_selection import train_test_split
 import random
-
+import sys
 
 def processFile(filename, cat, sup_output = False, verbose = False):
 	if verbose:
@@ -29,19 +28,6 @@ def loadUpData(cat, sup_output = False):
 		list_of_images_by_cat.append(processFile(filename, category, sup_output))
 	return list_of_images_by_cat
 
-# Here we sill split up the data for training/validation/testing
-def split():
-	X, y = np.arange(10).reshape((5,2)),range(5)
-	print(X)
-	print(list(y))
-	X_train, X_test, y_train, y_test, = train_test_split(X,y,test_size=0.33, random_state = 42)
-	print("X_train",X_train)
-	print("X_test",X_test)
-	print("y_train",y_train)
-	print("y_test",y_test)
-	print(train_test_split(y, shuffle=False))
-	print(train_test_split(y))
-	return
 
 def random_sample(list_cat_imgs, num_samples, cat_english_labels, sup_output = False, verbose = False):
 	if sup_output:
@@ -83,34 +69,48 @@ def random_sample(list_cat_imgs, num_samples, cat_english_labels, sup_output = F
 			print(samplesX)
 			print(samplesX.shape)
 	return resampled_cat_imgs
+
 def squish(uniform_list):
+	#For this to work the list needs to have all of the same num of examples
 	number_of_examples_per_Cat = uniform_list[0].shape[0]
 	number_of_cat = len(uniform_list)
 	total_examples = number_of_examples_per_Cat*number_of_cat
-	X = np.zeros(shape = (total_examples))
+	X = np.zeros(shape = (total_examples,28,28), dtype = int)
+	i = 0
 	for cat in uniform_list:
+		lidx = i*number_of_examples_per_Cat
+		ridx = (i+1)*number_of_examples_per_Cat
+		X[lidx:ridx,:,:] = cat
+		i += 1
+	return X
 
-	retrun
-def visualizeRandomSample():
-	#plt.imshow(reshapedImage, cmap='gray', interpolation='nearest');
-	#plt.show()
-	return
+
+
+def expand_labels(num_cat, samples):
+	y = np.zeros((num_cat*samples),dtype=int)
+	for i in range(num_cat):
+		lidx = i*samples
+		ridx = (i+1)*samples
+		y[lidx:ridx] = np.repeat(i, samples)
+	return y
 
 def print_shapes_list(lis):
-	[print(cat.shape) for cat in lis]
+	for cat in lis:
+		print(cat.shape)
 	return
 
-def main():
-	# categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
-	# y = range(10)
-	# list_of_cat_images = loadUpData(categories, True)
-	# sub_sampled_imgs = random_sample(list_of_cat_images, num_samples = 1000, cat_english_labels = categories,sup_output=False)
-	# resahped_list_imgs = reshapeImages(sub_sampled_imgs)
-
+def main(t = "input_arg"):
+	print(t)
+	categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
+	samples = 1000
+	num_cat = len(categories)
+	list_of_cat_images = loadUpData(categories, sup_output = True)
+	sub_sampled_imgs = random_sample(list_of_cat_images, num_samples = samples, cat_english_labels = categories,sup_output=False)
+	resahped_list_imgs = reshapeImages(sub_sampled_imgs)
 	# print_shapes_list(resahped_list_imgs)
-
-	split()
-	return
+	X = squish(resahped_list_imgs)
+	y = expand_labels(num_cat, samples)
+	return X, y, categories
 
 if __name__ == "__main__":
 	main()
