@@ -54,7 +54,7 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     model.add(Dropout(dropout_rate))
     model.add(Dense(10, activation = "softmax"))
     # Use the adam optimizer
-    model.compile(loss="categorical_crossentropy", optimizer="adam")
+    model.compile(loss="categorical_crossentropy", optimizer="adam", metrics = ['acc'])
     print()
     print("Fitting the model")
 
@@ -71,13 +71,14 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     plt.xlabel('epoch')
     plt.legend(['training_set', 'validation_set'], loc='upper right')
     plt.show()
+    print(history_object.history)
     print("train loss", history_object.history['loss'][-1])
     print("train accuracy", history_object.history['acc'][-1])
     print("val loss", history_object.history['val_loss'][-1])
     print("validation accuracy", history_object.history['val_acc'][-1])
 
     model.save('model.h5')
-    return model
+    return model, X_test, y_test
 def test(X_test, y_test, model):
     y_hat = model.predict_classes(X_test)
     for i in range(len(X_test)):
