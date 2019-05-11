@@ -9,7 +9,7 @@ def visualizeRandomSample(X,y,cat_lab):
     index = np.random.randint(0, len(X))
     label = y[index]
     image = X[index,:,:].squeeze()
-    plt.imshow(image, cmap='gray', interpolation='nearest')
+    plt.imshow(image, cmap='gray')
     plt.title(label = (cat_lab[label]))
     plt.show()
     return

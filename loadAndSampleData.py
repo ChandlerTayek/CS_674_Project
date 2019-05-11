@@ -57,6 +57,8 @@ def random_sample(list_cat_imgs, num_samples, cat_english_labels, sup_output = F
 			print('Take',num_samples, 'samples from', number_of_training_examples, 'of', cat_english_labels[i] + 's')
 
 		#Uniformly select num_samples worth of samples from X
+		#uncomment seed if you want it to not produce the same results
+		random.seed(1)
 		idx = random.sample(range(number_of_training_examples),num_samples)
 		# Select only the samples that were randomly generated
 		samplesX = cat[idx,:]
@@ -99,8 +101,7 @@ def print_shapes_list(lis):
 		print(cat.shape)
 	return
 
-def main(t = "input_arg"):
-	print(t)
+def main(sup_outs = False):
 	categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
 	samples = 1000
 	num_cat = len(categories)
