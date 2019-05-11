@@ -24,18 +24,18 @@ def run(X_train, X_test, y_train, y_test):
     # Caculate the standard deviation across all training examples
     sigma = np.std(X_train) + 10
     #Normalize pixels
-    model.add(Lambda(lambda x: x - mu/std, input_shape = (28,28,1)))
+    model.add(Lambda(lambda x: x - mu/std, input_shape = (28,28)))
     model.add(Convolutional2D(24,5,5, activation = "relu"))
     model.add(Convolution2D(activation = "relu"))
     model.add(Convolution2D(activation = "relu"))
-    model.add(MaxPooling2D())
-    model.add(Dense())
-    model.add(Dense())
-    model.add(Dense())
-    model.add(Dense())
+    model.add(MaxPooling2D(2))
+    model.add(Dense(700, activation = "relu"))
+    model.add(Dense(500, activation = "relu"))
+    model.add(Dense(400, activation = "relu"))
+    model.add(Dense(345, activation = "softmax"))
 
     # Use the adam optimizer
-    model.compile(loss="mse", optimizer="adam")
+    model.compile(loss="categorical_crossentropy", optimizer="adam")
     print()
     print("Fitting the model")
 
