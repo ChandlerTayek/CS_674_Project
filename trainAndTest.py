@@ -88,7 +88,7 @@ def main():
     X, y, categories = loadAndSampleData.main(True)
     print("begin training")
     X_train, X_test, y_train, y_test = split(X,y)
-    run(X_train, X_test, y_train, y_test, len(categories), test = False)
+    run(X_train, X_test, y_train, y_test, len(categories), test = True)
     return
 
 if __name__ == "__main__":

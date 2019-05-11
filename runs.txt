@@ -72,3 +72,12 @@ run13 epoch = 32, samples 10000, epsilon = 0.0001, drop = 0.40 optimizer = adam
             train accuracy 0.9315294117663558
             val loss 0.3569191615002997
             validation accuracy 0.9227450980205162
+
+run14/final poch = 32, samples 10000, epsilon = 0.0001, drop = 0.40 optimizer = adam
+            random seed set for both sampling and splitting
+            train loss 0.28221680412096034
+            train accuracy 0.9330519031042871
+            val loss 0.3933997991663568
+            validation accuracy 0.9207843137067907
+            Test Loss: 0.4062032888003712
+            Test Accuracy: 0.9157333333651225
