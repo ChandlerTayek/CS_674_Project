@@ -103,7 +103,7 @@ def print_shapes_list(lis):
 
 def main(sup_outs = False):
 	categories = ['cannon','eye', 'face', 'nail', 'pear','piano','radio','spider','star','sword']
-	samples = 2000
+	samples = 10000
 	num_cat = len(categories)
 	list_of_cat_images = loadUpData(categories, sup_output = True)
 	sub_sampled_imgs = random_sample(list_of_cat_images, num_samples = samples, cat_english_labels = categories,sup_output=False)

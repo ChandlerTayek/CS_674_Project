@@ -1,0 +1,74 @@
+run1 epoch = 2, samples 1000, epsilon = 10, drop = 0.2
+     random seed set for both sampling and splitting
+run2 epoch = 32, samples 1000, epsilon = 10, drop = 0.2
+     random seed set for both sampling and splitting
+run3 epoch = 32, samples 1000, epsilon = 10, drop = 0.2
+     random seed set for both sampling and splitting
+run4 epoch = 32, samples 1000, epsilon = 10, drop = 0.2
+     random seed set for both sampling and splitting
+     train_error: 0.07885
+     test_error: 1.506001
+---------------------Normalization fix--------------------------------------
+
+run5 epoch = 32, samples 1000, epsilon = 10, drop = 0.2
+     random seed set for both sampling and splitting
+     train_error: 0.07885
+     test_error: 1.506001
+
+-----------------------Accuracy----------------------------------------------
+
+run6 epoch = 32, samples 1000, epsilon = 10, drop = 0.5
+     random seed set for both sampling and splitting
+     train loss 0.09496863194201126
+     train accuracy 0.9797923874690045
+     val loss 0.9175084800579969
+     validation accuracy 0.8666666672744003
+
+run7 epoch = 32, samples 2000, epsilon = 10, drop = 0.2
+            random seed set for both sampling and splitting
+            train loss 0.09333306386520515
+            train accuracy 0.9802768166089966
+            val loss 0.6849093642304925
+            validation accuracy 0.8815686275444778
+
+run8 epoch = 32, samples 2000, epsilon = 10, drop = 0.3
+            random seed set for both sampling and splitting
+            train loss 0.08388669521765403
+            train accuracy 0.981038062283737
+            val loss 0.9314704984923203
+            validation accuracy 0.8917647059758504
+
+run9 epoch = 32, samples 2000, epsilon = 10, drop = 0.5
+            random seed set for both sampling and splitting
+            train loss 0.26031345700516423
+            train accuracy 0.936539792395793
+            val loss 0.6506035618221059
+            validation accuracy 0.867058823482663
+
+run10 epoch = 32, samples 2000, epsilon = 10, drop = 0.35
+            random seed set for both sampling and splitting
+            train loss 0.2939052063701062
+            train accuracy 0.9287197231916408
+            val loss 0.7189182826350717
+            validation accuracy 0.8682352943513908
+
+run11 epoch = 32, samples 2000, epsilon = 10, drop = 0.35
+            random seed set for both sampling and splitting
+            train loss 0.16462382682782511
+            train accuracy 0.9633217993079585
+            val loss 0.7932130374160468
+            validation accuracy 0.885882353034674
+
+run12 epoch = 32, samples 2000, epsilon = 0.0001, drop = 0.40 optimizer = adam
+            random seed set for both sampling and splitting
+            train loss 0.15713347603655162
+            train accuracy 0.9661591695171738
+            val loss 0.7560970743730956
+            validation accuracy 0.878039215779772
+
+run13 epoch = 32, samples 10000, epsilon = 0.0001, drop = 0.40 optimizer = adam
+            random seed set for both sampling and splitting
+            train loss 0.2886239411248777
+            train accuracy 0.9315294117663558
+            val loss 0.3569191615002997
+            validation accuracy 0.9227450980205162

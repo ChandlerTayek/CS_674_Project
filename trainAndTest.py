@@ -18,7 +18,7 @@ def split(X, y, split_perc = 0.15):
     print("y_test",y_test.shape)
     return X_train, X_test, y_train, y_test
 
-def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.40):
+def run(X_train, X_test, y_train, y_test, num_cat = 10, test = False, dropout_rate = 0.40):
     model = Sequential()
 
     # Caculate the mean across all training examples
@@ -29,9 +29,9 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.40):
     # The input shape might have to be size 28x28x1
     X_train = X_train.reshape((X_train.shape[0],28,28,1))
     X_test = X_test.reshape((X_test.shape[0],28,28,1))
-    X_test = (X_test- mu)/sigma
     #Convert our labels to one-hot vecotrs
     y_train = to_categorical(y_train, num_cat, dtype='float32')
+    y_test = to_categorical(y_test, num_cat, dtype='float32')
     model.add(Lambda(lambda x: (x - mu)/sigma, input_shape = (28,28,1)))
     model.add(Conv2D(5, (3,3), padding = "same", activation = "relu"))
     model.add(Conv2D(5, (3,3), padding = "same", activation= "relu"))
@@ -77,19 +77,18 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.40):
     print("validation accuracy", history_object.history['val_acc'][-1])
 
     model.save('model.h5')
-    return model, X_test, y_test
-def test(X_test, y_test, model):
-    y_hat = model.predict_classes(X_test)
-    for i in range(len(X_test)):
-        print("y=%s, Predicted=%s" % y_test[i], y_hat[i])
+
+    if test:
+        score = model.evaluate(X_test, y_test, verbose = 0)
+        print("Test Loss:", score[0])
+        print("Test Accuracy:", score[1])
     return
 
 def main():
     X, y, categories = loadAndSampleData.main(True)
     print("begin training")
     X_train, X_test, y_train, y_test = split(X,y)
-    model, X_test, y_test = run(X_train, X_test, y_train, y_test, len(categories))
-    # test(modelm X_test, ytest)
+    run(X_train, X_test, y_train, y_test, len(categories), test = False)
     return
 
 if __name__ == "__main__":
