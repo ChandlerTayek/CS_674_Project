@@ -87,7 +87,7 @@ def main():
     print("begin training")
     X_train, X_test, y_train, y_test = split(X,y)
     model, X_test, y_test = run(X_train, X_test, y_train, y_test, len(categories))
-    test(modelm X_test, ytest)
+    # test(modelm X_test, ytest)
     return
 
 if __name__ == "__main__":
