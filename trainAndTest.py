@@ -29,10 +29,10 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     # The input shape might have to be size 28x28x1
     X_train = X_train.reshape((X_train.shape[0],28,28,1))
     X_test = X_test.reshape((X_test.shape[0],28,28,1))
-
+    X_test = (X_test- mu)/sigma
     #Convert our labels to one-hot vecotrs
     y_train = to_categorical(y_train, num_cat, dtype='float32')
-    model.add(Lambda(lambda x: x - mu/sigma, input_shape = (28,28,1)))
+    model.add(Lambda(lambda x: (x - mu)/sigma, input_shape = (28,28,1)))
     model.add(Conv2D(5, (3,3), padding = "same", activation = "relu"))
     model.add(Conv2D(5, (3,3), padding = "same", activation= "relu"))
     model.add(Conv2D(5, (3,3), padding = "same", activation= "relu"))
@@ -71,13 +71,23 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     plt.xlabel('epoch')
     plt.legend(['training_set', 'validation_set'], loc='upper right')
     plt.show()
+    print("train loss", history_object.history['loss'][-1])
+    print("val loss", history_object.history['val_loss'][-1])
+
+    model.save('model.h5')
+    return model
+def test(X_test, y_test, model):
+    y_hat = model.predict_classes(X_test)
+    for i in range(len(X_test)):
+        print("y=%s, Predicted=%s" % y_test[i], y_hat[i])
     return
 
 def main():
     X, y, categories = loadAndSampleData.main(True)
     print("begin training")
     X_train, X_test, y_train, y_test = split(X,y)
-    run(X_train, X_test, y_train, y_test, len(categories))
+    model, X_test, y_test = run(X_train, X_test, y_train, y_test, len(categories))
+    test(modelm X_test, ytest)
     return
 
 if __name__ == "__main__":
