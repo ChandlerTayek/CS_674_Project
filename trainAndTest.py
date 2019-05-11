@@ -18,13 +18,13 @@ def split(X, y, split_perc = 0.15):
     print("y_test",y_test.shape)
     return X_train, X_test, y_train, y_test
 
-def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.5):
+def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.40):
     model = Sequential()
 
     # Caculate the mean across all training examples
     mu = np.mean(X_train)
     # Caculate the standard deviation across all training examples
-    sigma = np.std(X_train) + 10
+    sigma = np.std(X_train) + 0.0001
     #Normalize pixels
     # The input shape might have to be size 28x28x1
     X_train = X_train.reshape((X_train.shape[0],28,28,1))
