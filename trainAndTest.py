@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Dropout
-from keras.layers.convolutional import Convolution2D
+from keras.layers.convolutional import Conv2D
 from keras.layers.pooling import MaxPooling2D
 
 # Here we sill split up the data for training/validation/testing
@@ -27,10 +27,10 @@ def run(X_train, X_test, y_train, y_test, dropout_rate = 0.2):
     # The input shape might have to be size 28x28x1
     X_train = X_train.reshape((X_train.shape[0],28,28,1))
     X_test = X_test.reshape((X_test.shape[0],28,28,1))
-    model.add(Lambda(lambda x: x - mu/std, input_shape = (28,28,1)))
-    model.add(Convolutional2D(5, (3,3), padding = "same", activation = "relu"))
-    model.add(Convolution2D(5, (3,3), padding = "same", activation= "relu"))
-    model.add(Convolution2D(5, (3,3), padding = "same", activation= "relu"))
+    model.add(Lambda(lambda x: x - mu/sigma, input_shape = (28,28,1)))
+    model.add(Conv2D(5, (3,3), padding = "same", activation = "relu"))
+    model.add(Conv2D(5, (3,3), padding = "same", activation= "relu"))
+    model.add(Conv2D(5, (3,3), padding = "same", activation= "relu"))
     model.add(MaxPooling2D(2))
     model.add(Flatten())
     model.add(Dense(700, activation = "relu"))
