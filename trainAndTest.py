@@ -16,7 +16,7 @@ def split(X, y, split_perc = 0.15):
     print("y_test",y_test.shape)
     return X_train, X_test, y_train, y_test
 
-def run(X_train, X_test, y_train, y_test):
+def run(X_train, X_test, y_train, y_test, dropout_rate = 0.2):
     model = Sequential()
 
     # Caculate the mean across all training examples
@@ -25,8 +25,8 @@ def run(X_train, X_test, y_train, y_test):
     sigma = np.std(X_train) + 10
     #Normalize pixels
     # The input shape might have to be size 28x28x1
-    X_train = X_train.reshape((28,28,1))
-    X_test = X_test.reshape((28,28,1))
+    X_train = X_train.reshape((X_train.shape[0],28,28,1))
+    X_test = X_test.reshape((X_test.shape[0],28,28,1))
     model.add(Lambda(lambda x: x - mu/std, input_shape = (28,28,1)))
     model.add(Convolutional2D(5, (3,3), padding = "same", activation = "relu"))
     model.add(Convolution2D(5, (3,3), padding = "same", activation= "relu"))
@@ -34,19 +34,19 @@ def run(X_train, X_test, y_train, y_test):
     model.add(MaxPooling2D(2))
     model.add(Flatten())
     model.add(Dense(700, activation = "relu"))
-    #Drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(500, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(400, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(300, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(200, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(100, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(50, activation = "relu"))
-    #drop
+    model.add(Dropout(dropout_rate))
     model.add(Dense(10, activation = "softmax"))
     # Use the adam optimizer
     model.compile(loss="categorical_crossentropy", optimizer="adam")
