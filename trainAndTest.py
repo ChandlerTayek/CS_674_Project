@@ -28,16 +28,26 @@ def run(X_train, X_test, y_train, y_test):
     X_train = X_train.reshape((28,28,1))
     X_test = X_test.reshape((28,28,1))
     model.add(Lambda(lambda x: x - mu/std, input_shape = (28,28,1)))
-    model.add(Convolutional2D((3,3,5), activation = "relu"))
-    model.add(Convolution2D((3,3,5), = "relu"))
-    model.add(Convolution2D((3,3,5), = "relu"))
+    model.add(Convolutional2D(5, (3,3), padding = "same", activation = "relu"))
+    model.add(Convolution2D(5, (3,3), padding = "same", activation= "relu"))
+    model.add(Convolution2D(5, (3,3), padding = "same", activation= "relu"))
     model.add(MaxPooling2D(2))
     model.add(Flatten())
     model.add(Dense(700, activation = "relu"))
+    #Drop
     model.add(Dense(500, activation = "relu"))
+    #drop
     model.add(Dense(400, activation = "relu"))
-    model.add(Dense(345, activation = "softmax"))
-
+    #drop
+    model.add(Dense(300, activation = "relu"))
+    #drop
+    model.add(Dense(200, activation = "relu"))
+    #drop
+    model.add(Dense(100, activation = "relu"))
+    #drop
+    model.add(Dense(50, activation = "relu"))
+    #drop
+    model.add(Dense(10, activation = "softmax"))
     # Use the adam optimizer
     model.compile(loss="categorical_crossentropy", optimizer="adam")
     print()
