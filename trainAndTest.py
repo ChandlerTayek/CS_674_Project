@@ -18,7 +18,7 @@ def split(X, y, split_perc = 0.15):
     print("y_test",y_test.shape)
     return X_train, X_test, y_train, y_test
 
-def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
+def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.5):
     model = Sequential()
 
     # Caculate the mean across all training examples
@@ -62,7 +62,6 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     #TODO: Change shuffle to False and change nb_epoch to 12 or 32
     history_object = model.fit(X_train, y_train, validation_split = 0.15, shuffle = False, nb_epoch=32)
     print("model fitted")
-    print(history_object.history.keys())
 
     plt.plot(history_object.history['loss'])
     plt.plot(history_object.history['val_loss'])
@@ -71,7 +70,7 @@ def run(X_train, X_test, y_train, y_test, num_cat = 10, dropout_rate = 0.2):
     plt.xlabel('epoch')
     plt.legend(['training_set', 'validation_set'], loc='upper right')
     plt.show()
-    print(history_object.history)
+
     print("train loss", history_object.history['loss'][-1])
     print("train accuracy", history_object.history['acc'][-1])
     print("val loss", history_object.history['val_loss'][-1])
